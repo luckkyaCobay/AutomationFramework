@@ -1,0 +1,105 @@
+package Cobay_Modules;
+
+import java.time.Duration;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.annotations.Test;
+import BaseClass.loginLocators;
+import BaseTest.SetUp;
+import org.testng.Assert;
+
+
+public class LoginPage extends loginLocators {
+
+
+	@Test 
+	public void login()  {
+		
+		ChromeOptions options = new ChromeOptions();
+		options.addArguments("incognito");
+
+		WebDriver driver = new ChromeDriver(options);
+		driver.manage().window().maximize();
+
+		driver.get("https://sandbox.staging-cobay.com/login");
+
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+		
+		WebElement emailField = wait.until(ExpectedConditions.visibilityOfElementLocated(loginLocators.emailfield));
+		emailField.sendKeys("harish@fouvi.co");
+
+
+		WebElement passwordField = wait.until(ExpectedConditions.visibilityOfElementLocated(loginLocators.passwordField));
+		passwordField.sendKeys("asdf1234");
+
+
+		WebElement loginButton = wait.until(ExpectedConditions.elementToBeClickable(loginLocators.loginButton));
+		loginButton.click();
+
+		
+		wait.until(ExpectedConditions.urlContains("https://sandbox.staging-cobay.com/home"));
+
+		Assert.assertEquals(driver.getCurrentUrl(),"https://sandbox.staging-cobay.com/home","User did NOT navigate to Home page after login");
+		
+
+		driver.quit();
+      
+
+        
+	}
+	
+	@Test
+	public void logout() {
+		
+		ChromeOptions options = new ChromeOptions();
+        options.addArguments("incognito");
+        
+        WebDriver driver = new ChromeDriver(options); 
+		
+		driver.manage().window().maximize();
+        
+        driver.get("https://sandbox.staging-cobay.com/login");
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+        
+        WebElement emailField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@type='email']")));
+        emailField.sendKeys("harish@fouvi.co");
+
+       
+        WebElement passwordField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[contains(@class,'password-input-wrapper')]//input")));
+        passwordField.sendKeys("asdf1234");
+
+     
+        WebElement loginButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[normalize-space()='Login']")));
+        loginButton.click();
+        
+        WebElement userLogo = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//img[contains(@class,'v-img__img')]")));
+        userLogo.click();
+        
+        WebElement signout = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[contains(@class,'v-list-item-title')]//b[normalize-space()='Sign Out']")));
+        signout.click();
+        
+        wait.until(ExpectedConditions.urlContains("https://sandbox.staging-cobay.com/login"));
+
+        String actualUrl = driver.getCurrentUrl();
+
+        Assert.assertEquals(actualUrl,"https://sandbox.staging-cobay.com/login", "User did NOT navigate to Home page after login");
+            
+        driver.quit();
+        
+        
+	}
+}
+	
+	      
+
+	
+       
+
+		
+	
