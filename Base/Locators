@@ -1,0 +1,16 @@
+package BaseClass;
+
+import org.openqa.selenium.By;
+
+
+public class loginLocators {
+	
+	public static final By emailfield = By.xpath("//input[@type='email']");
+	public static final By passwordField = By.xpath("//div[contains(@class,'password-input-wrapper')]//input");
+	public static final By loginButton = By.xpath("//button[normalize-space()='Login']");
+	
+	
+    
+    
+
+}
