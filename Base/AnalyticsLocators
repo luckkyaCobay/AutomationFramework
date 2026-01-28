@@ -1,0 +1,21 @@
+package com.cobay.pages.locators;
+
+import org.openqa.selenium.By;
+
+public class DashboardPageLocators {
+    
+    // Private constructor to prevent instantiation
+    public DashboardPageLocators() {
+        throw new UnsupportedOperationException("Utility class - cannot be instantiated");
+    }
+
+    public static final By sidebar = By.xpath("//nav[contains(@class,'v-navigation-drawer')]");
+    public static final By analyticsMenu = By.xpath("//div[normalize-space()='Analytics']/ancestor::a");
+    
+    public static final By orders = By.xpath("//span[normalize-space()='Orders']/ancestor::a\r\n"); 
+    public static final By shipments = By.xpath("//span[normalize-space()='Shipments']/ancestor::a\r\n");
+    public static final By rto = By.xpath("//a[@role='tab']//span[normalize-space()='RTO']\r\n");
+    public static final By ndr = By.xpath("//a[@role='tab' and .//span[normalize-space()='NDR']]\r\n");
+
+
+}
